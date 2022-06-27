@@ -1,6 +1,5 @@
 import '../App/App.module.css';
 import ContactForm from '../ContactForm';
-import ContactList from '../ContactList';
 import Filter from '../ContactList';
 import Section from '../Section';
 
