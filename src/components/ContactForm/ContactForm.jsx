@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import shortid from 'shortid';
+import { useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import s from './ContactForm.module.css';
+import contactsActions from '../redux/contacts/contacts-actions';
 
-function ContactForm({ onSubmit }) {
+function ContactForm({ onSubmit, contacts }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -25,7 +26,18 @@ function ContactForm({ onSubmit }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit({ name, number });
+    const options = { name, number };
+
+    if (
+      contacts.find(
+        contact => name.toLowerCase() === contact.name.toLowerCase(),
+      )
+    ) {
+      alert(`${name} is already in contacts`);
+    } else {
+      onSubmit(options);
+    }
+
     reset();
   };
 
@@ -34,18 +46,15 @@ function ContactForm({ onSubmit }) {
     setNumber('');
   };
 
-  const nameId = shortid.generate();
-  const numberId = shortid.generate();
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <label className={s.label} htmlFor={nameId}>
+      <label className={s.label}>
         Name
         <input
           className={s.input}
           type="text"
           name="name"
-          id={nameId}
           value={name}
           onChange={handleChange}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -53,13 +62,12 @@ function ContactForm({ onSubmit }) {
           required
         />
       </label>
-      <label className={s.label} htmlFor={numberId}>
+      <label className={s.label}>
         Number
         <input
           className={s.input}
           type="tel"
           name="number"
-          id={numberId}
           value={number}
           onChange={handleChange}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -74,9 +82,16 @@ function ContactForm({ onSubmit }) {
     </form>
   );
 }
-
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  contacts: PropTypes.array.isRequired,
 };
+const mapStateToProps = ({ contacts: { items } }) => ({
+  contacts: items,
+});
+const mapDispatchToProps = dispatch => ({
+  onSubmit: contact => dispatch(contactsActions.addContact(contact)),
+});
 
-export default ContactForm;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
