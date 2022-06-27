@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import s from './ContactForm.module.css';
-import contactsActions from '../redux/contacts/contacts-actions';
+import contactsActions from '../../redux/contacts/contacts-actions';
 
 function ContactForm({ onSubmit, contacts }) {
   const [name, setName] = useState('');

@@ -1,8 +1,8 @@
-import '../App/App.module.css';
-import ContactForm from '../ContactForm';
-import ContactList from '../ContactList';
-import Filter from '../ContactList';
-import Section from '../Section';
+import './App.module.css';
+import ContactForm from '../src/components/ContactForm';
+import ContactList from '../src/components/ContactList';
+import Filter from '../src/components/Filter';
+import Section from '../src/components/Section';
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
       <h1>Phonebook</h1>
       <ContactForm />
       <h2>Contacts</h2>
+      <ContactList />
       <Filter />
     </Section>
   );
