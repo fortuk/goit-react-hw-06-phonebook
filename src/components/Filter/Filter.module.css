@@ -1,12 +1,9 @@
-.input {
-  max-width: 200px;
-  margin-bottom: 15px;
+.input{
+    border-radius: 15px;
+    border-color: green;
+    padding: 7px;
 }
-
-.label {
-  font-size: 20px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.label{
+    display: block;
+    text-align: center;
 }
