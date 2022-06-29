@@ -7,19 +7,14 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import store from './redux/store'
 
-ReactDOM.render( <
-    React.StrictMode >
-    <
-    Provider store = { store.store } >
-    <
-    PersistGate loading = { null }
-    persistor = { store.persistor } >
-    <
-    App / >
-    <
-    /PersistGate> <
-    /Provider> <
-    /React.StrictMode>,
+ReactDOM.render(
+    <React.StrictMode>
+        <Provider store={store.store} >
+            <PersistGate loading={null} persistor={store.persistor} >
+                <App />
+            </PersistGate>
+        </Provider>
+    </React.StrictMode >,
     document.getElementById('root'),
 );
 // If you want to start measuring performance in your app, pass a function
